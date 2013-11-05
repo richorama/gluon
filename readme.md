@@ -13,7 +13,7 @@ var demo = {
 	firstName : "Richard", 
 	last_name : "Astbury", 
 	checkBoxTrue : true, 
-	false, age:36};
+	age:36 };
 ```
 
 You can create an HTML form with the `edit` function:
@@ -23,8 +23,10 @@ $("#edit").html(Gluon.edit(demo));
 ```
 
 Which looks like this:
+___
 
 ![Edit](https://dl.dropboxusercontent.com/u/624582/github/gluon/edit.png)
+___
 
 You can create an HTML form to just display the values with the `view` function:
 
@@ -33,16 +35,17 @@ $("#view").html(Gluon.view(demo));
 ```
 
 Which looks like this:
-
+___
 ![View](https://dl.dropboxusercontent.com/u/624582/github/gluon/view.png)
-
+___
 You can create a table of objects like this:
 
 ```js
 $("#view").html(Gluon.table([demo,demo,demo]));
 ```
-
+___
 ![Table](https://dl.dropboxusercontent.com/u/624582/github/gluon/table.png)
+___
 
 
 ## Options
