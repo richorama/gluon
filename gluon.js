@@ -35,7 +35,7 @@ var Gluon = {
 					html += '<div class="form-group"><label for="' + prop + '">' + Gluon.formatName(prop) + '</label><input type="text" class="form-control ' + options.sessionId + '" id="' + prop + '" value="' + obj[prop] + '"></div>';
 					break;
 				case 'boolean':
-				 	html += '<div class="form-group"><label><input class="' + options.sessionId + '"" type="checkbox" ' + (obj[prop] ? 'checked' : '') + '> ' + Gluon.formatName(prop) + '</label></div>';
+				 	html += '<div class="form-group"><label><input class="' + options.sessionId + '" type="checkbox" ' + (obj[prop] ? 'checked' : '') + '> ' + Gluon.formatName(prop) + '</label></div>';
 					break;
 				case 'number':
 					html += '<div class="form-group"><label for="' + prop + '">' + Gluon.formatName(prop) + '</label><input type="number" class="form-control ' + options.sessionId + '" id="' + prop + '" value="' + obj[prop] + '"></div>';
