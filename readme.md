@@ -28,6 +28,12 @@ ___
 ![Edit](https://dl.dropboxusercontent.com/u/624582/github/gluon/edit.png)
 ___
 
+To convert the form back into an object, use the `toJS` function:
+
+```js
+var demo2 = Gluon.toJS();
+```
+
 You can create an HTML form to just display the values with the `view` function:
 
 ```js
@@ -46,6 +52,16 @@ $("#view").html(Gluon.table([demo,demo,demo]));
 ___
 ![Table](https://dl.dropboxusercontent.com/u/624582/github/gluon/table.png)
 ___
+
+If you wan to enable multiple forms on the page, you can supply a `sessionId`:
+
+```js
+$("#edit").html(Gluon.edit(demo, {sessionId: "123"}));
+
+// the user edits the page
+
+var demo2 = Gluon.toJS("123");
+```
 
 
 ## Options

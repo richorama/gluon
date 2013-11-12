@@ -21,6 +21,7 @@ $(document).ready(function(){
 	$("#edit").html(Gluon.edit(test, {ignoreList:["foo"], sessionId : "123"}));
 	$("#view").html(Gluon.view(test, {ignoreList:["foo"]}));
 	$("#table").html(Gluon.table([test,test,test], {ignoreList:["foo"]}));
+	console.log(Gluon.toJS("123"));
 });
 
     </script>

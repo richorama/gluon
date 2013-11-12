@@ -7,7 +7,7 @@ var Gluon = {
 			options.ignoreList = [];
 		}
 		if (options.sessionId === undefined){
-			options.sessionId = "";
+			options.sessionId = "gluon";
 		}
 		return options;
 	},
@@ -32,13 +32,13 @@ var Gluon = {
 			}
 			switch (typeof obj[prop]){
 				case 'string':
-					html += '<div class="form-group"><label for="' + prop + '">' + Gluon.formatName(prop) + '</label><input type="text" class="form-control ' + options.sessionId + '" id="' + prop + '" value="' + obj[prop] + '"></div>';
+					html += '<div class="form-group"><label for="' + prop + '">' + Gluon.formatName(prop) + '</label><input data-type="string" type="text" class="form-control ' + options.sessionId + '" id="' + prop + '" value="' + obj[prop] + '"></div>';
 					break;
 				case 'boolean':
-				 	html += '<div class="form-group"><label><input class="' + options.sessionId + '" type="checkbox" ' + (obj[prop] ? 'checked' : '') + '> ' + Gluon.formatName(prop) + '</label></div>';
+				 	html += '<div class="form-group"><label><input data-type="boolean" class="' + options.sessionId + '" type="checkbox" ' + (obj[prop] ? 'checked' : '') + ' id="' + prop + '"> ' + Gluon.formatName(prop) + '</label></div>';
 					break;
 				case 'number':
-					html += '<div class="form-group"><label for="' + prop + '">' + Gluon.formatName(prop) + '</label><input type="number" class="form-control ' + options.sessionId + '" id="' + prop + '" value="' + obj[prop] + '"></div>';
+					html += '<div class="form-group"><label for="' + prop + '">' + Gluon.formatName(prop) + '</label><input data-type="number" type="number" class="form-control ' + options.sessionId + '" id="' + prop + '" value="' + obj[prop] + '"></div>';
 					break;
 			}
 		}
@@ -111,7 +111,29 @@ var Gluon = {
 
 		html += "</table>";
 		return html;		
+	},
+	toJS: function(sessionId){
+		if (sessionId === undefined){
+			sessionId = "gluon";
+		}
+		var elements = document.getElementsByClassName(sessionId);
+		var obj = {};
+		for (var i = 0; i < elements.length; i++){
+			var el = elements[i];
+			if (!el.attributes["data-type"]) continue;
 
-
+			switch (el.attributes["data-type"].value){
+				case 'string':
+					obj[el.id] = el.value;
+					break;
+				case 'number':
+					obj[el.id] = Number(el.value);						
+					break;
+				case 'boolean':
+					obj[el.id] = !(el.attributes["checked"] === undefined);
+					break;
+			}
+		}
+		return obj;
 	}
 }
