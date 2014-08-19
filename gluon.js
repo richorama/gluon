@@ -1,13 +1,15 @@
 var Gluon = {
-	appendButtons : function(html, buttons){
+	appendButtons : function(buttons){
+		var x = "";
 		for (var i = 0; i < buttons.length; i++){
 			var action = buttons[i];		
 			if (i === 0){
-				html += '<a href="javascript:void(0);" class="btn btn-primary" role="button" id="button-' + action + '">' + action + '</a> '	
+				x += '<a href="javascript:void(0);" class="btn btn-primary" role="button" id="button-' + action + '">' + action + '</a> '	
 			} else {
-				html += '<a href="javascript:void(0);" class="btn btn-default" role="button" id="button-' + action + '">' + action + '</a> '	
+				x += '<a href="javascript:void(0);" class="btn btn-default" role="button" id="button-' + action + '">' + action + '</a> '	
 			}
 		}
+		return x;
 	},
 	parseOptions: function(options){
 		if (!options){
@@ -59,8 +61,7 @@ var Gluon = {
 					break;
 			}
 		}
-		Gluon.appendButtons(html, options.actions);
-		html += "";
+		html += Gluon.appendButtons(options.actions);
 		return html;
 	},
 	view : function(obj, options){
@@ -83,7 +84,7 @@ var Gluon = {
 			}
 		}
 		html += "</div>";
-		Gluon.appendButtons(html, options.actions);
+		html += Gluon.appendButtons(options.actions);
 		return html;		
 
 	},
@@ -129,7 +130,7 @@ var Gluon = {
 		});
 
 		html += "</table>";
-		Gluon.appendButtons(html, options.actions);
+		html += Gluon.appendButtons(options.actions);
 		return html;		
 	},
 	toJS: function(sessionId){
