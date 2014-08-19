@@ -9,6 +9,9 @@ var Gluon = {
 		if (options.sessionId === undefined){
 			options.sessionId = "gluon";
 		}
+		if (options.actions === undefined){
+			options.actions = [];
+		}
 		return options;
 	},
 
@@ -45,6 +48,15 @@ var Gluon = {
 					html += '<div class="form-group"><label for="' + prop + '">' + Gluon.formatName(prop) + '</label><input data-type="number" type="number" class="form-control ' + options.sessionId + '" id="' + prop + '" value="' + obj[prop] + '"></div>';
 					break;
 			}
+		}
+		for (var i = 0; i < options.actions.length; i++){
+			var action = options.actions[i];		
+			if (i === 0){
+				html += '<a href="javascript:void(0);" class="btn btn-primary" role="button" id="button-' + action + '">' + action + '</a> '	
+			} else {
+				html += '<a href="javascript:void(0);" class="btn btn-default" role="button" id="button-' + action + '">' + action + '</a> '	
+			}
+			
 		}
 		html += "";
 		return html;
