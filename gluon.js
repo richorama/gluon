@@ -32,7 +32,11 @@ var Gluon = {
 			}
 			switch (typeof obj[prop]){
 				case 'string':
-					html += '<div class="form-group"><label for="' + prop + '">' + Gluon.formatName(prop) + '</label><input data-type="string" type="text" class="form-control ' + options.sessionId + '" id="' + prop + '" value="' + obj[prop] + '"></div>';
+					if (prop.toLowerCase() === "password"){
+						html += '<div class="form-group"><label for="' + prop + '">' + Gluon.formatName(prop) + '</label><input data-type="string" type="password" class="form-control ' + options.sessionId + '" id="' + prop + '" value="' + obj[prop] + '"></div>';
+					} else {
+						html += '<div class="form-group"><label for="' + prop + '">' + Gluon.formatName(prop) + '</label><input data-type="string" type="text" class="form-control ' + options.sessionId + '" id="' + prop + '" value="' + obj[prop] + '"></div>';
+					}
 					break;
 				case 'boolean':
 				 	html += '<div class="form-group"><label><input data-type="boolean" class="' + options.sessionId + '" type="checkbox" ' + (obj[prop] ? 'checked' : '') + ' id="' + prop + '"> ' + Gluon.formatName(prop) + '</label></div>';

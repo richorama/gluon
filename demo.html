@@ -3,7 +3,7 @@
   <head>
     <title>Gluon Examples</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.0.1/css/bootstrap.min.css">
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -12,7 +12,8 @@
       <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
     <![endif]-->
 
-    <script src="https://code.jquery.com/jquery.js"></script>
+    <script src="jquery-2.0.3.min.js"></script>
+    <!--script src="https://code.jquery.com/jquery.js"></script-->
     <script src="gluon.js"></script>
     <script>
 
@@ -21,6 +22,7 @@ $(document).ready(function(){
 	$("#edit").html(Gluon.edit(test, {ignoreList:["foo"], sessionId : "123"}));
 	$("#view").html(Gluon.view(test, {ignoreList:["foo"]}));
 	$("#table").html(Gluon.table([test,test,test], {ignoreList:["foo"]}));
+	$("#login").html(Gluon.edit({username:"richard", password: "password"}))
 	console.log(Gluon.toJS("123"));
 });
 
@@ -42,6 +44,13 @@ $(document).ready(function(){
 		<div class="col-md-12">
 			<h2>Table</h2>
 			<div id="table"></div>
+		</div>
+	</div>
+
+	<div class="row container">
+		<div class="col-md-12">
+			<h2>Log In</h2>
+			<div id="login"></div>
 		</div>
 	</div>
 
