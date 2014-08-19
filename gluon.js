@@ -141,3 +141,11 @@ var Gluon = {
 		return obj;
 	}
 }
+
+if (global){
+	global.Gluon = Gluon;
+}
+
+if (module && module.exports){
+	module.exports = Gluon;
+}
