@@ -28,6 +28,9 @@ var Gluon = {
 		if (options.actions === undefined){
 			options.actions = [];
 		}
+		if (options.select === undefined){
+			options.select = {};
+		}
 		return options;
 	},
 
@@ -50,19 +53,41 @@ var Gluon = {
 			if (!options.ignoreList.indexOf(prop)){
 				continue;
 			}
-			switch (typeof obj[prop]){
-				case 'string':
-					if (prop.toLowerCase() === "password"){
-						html += '<div class="form-group"><label for="' + prop + '">' + Gluon.formatName(prop) + '</label><input data-type="string" type="password" class="form-control ' + options.sessionId + '" id="' + prop + '" value="' + obj[prop] + '"></div>';
+			if (options.select[prop]){
+				var appendOption = function(id, description){
+					if (obj[prop] === id){
+						html += '<option value="' + id + '" selected>' + description + '</option>';	
 					} else {
-						html += '<div class="form-group"><label for="' + prop + '">' + Gluon.formatName(prop) + '</label><input data-type="string" type="text" class="form-control ' + options.sessionId + '" id="' + prop + '" value="' + obj[prop] + '"></div>';
+						html += '<option value="' + id + '">' + description + '</option>';	
 					}
-					break;
+				}
+
+				html += '<div class="form-group"><label for="' + prop + '">' + Gluon.formatName(prop) + '</label><select class="form-control ' + options.sessionId + '" id="' + prop + '">';
+				if (Array.isArray && Array.isArray(options.select[prop])){
+					options.select[prop].forEach(function(x){
+						appendOption(x, x);
+					});
+				} else {
+					Object.keys(options.select[prop]).forEach(function(x){
+						appendOption(x, options.select[prop][x]);					
+					});
+				}
+				html += '</select></div>';
+				continue;
+			}
+			switch (typeof obj[prop]){
 				case 'boolean':
 				 	html += '<div class="form-group"><label><input data-type="boolean" class="' + options.sessionId + '" type="checkbox" ' + (obj[prop] ? 'checked' : '') + ' id="' + prop + '"> ' + Gluon.formatName(prop) + '</label></div>';
 					break;
 				case 'number':
 					html += '<div class="form-group"><label for="' + prop + '">' + Gluon.formatName(prop) + '</label><input data-type="number" type="number" class="form-control ' + options.sessionId + '" id="' + prop + '" value="' + obj[prop] + '"></div>';
+					break;
+				default:
+					if (prop.toLowerCase() === "password"){
+						html += '<div class="form-group"><label for="' + prop + '">' + Gluon.formatName(prop) + '</label><input data-type="string" type="password" class="form-control ' + options.sessionId + '" id="' + prop + '" value="' + obj[prop] + '"></div>';
+					} else {
+						html += '<div class="form-group"><label for="' + prop + '">' + Gluon.formatName(prop) + '</label><input data-type="string" type="text" class="form-control ' + options.sessionId + '" id="' + prop + '" value="' + obj[prop] + '"></div>';
+					}
 					break;
 			}
 		}
@@ -82,13 +107,13 @@ var Gluon = {
 			if (!options.ignoreList.indexOf(prop)){
 				continue;
 			}
-			switch (typeof obj[prop]){
-				case 'string':
-				case 'number':
-				case 'boolean':
-					html += '<div class="form-group"><div class="col-md-6"><strong>' + Gluon.formatName(prop) + '</strong></div><div class="col-md-6">' + obj[prop] + '</div></div>';
-					break;
+			if (options.select[prop] && Array.isArray && !Array.isArray(options.select[prop])){
+
+				html += '<div class="form-group"><div class="col-md-6"><strong>' + Gluon.formatName(prop) + '</strong></div><div class="col-md-6">' + options.select[prop][obj[prop]] + '</div></div>';				
+				continue;
 			}
+
+			html += '<div class="form-group"><div class="col-md-6"><strong>' + Gluon.formatName(prop) + '</strong></div><div class="col-md-6">' + obj[prop] + '</div></div>';
 		}
 		html += "</div>";
 		html += Gluon.appendButtons(options.actions);
@@ -110,13 +135,8 @@ var Gluon = {
 			if (!options.ignoreList.indexOf(prop)){
 				continue;
 			}
-			switch (typeof obj[prop]){
-				case 'string':
-				case 'number':
-				case 'boolean':
-					html += '<th>' + Gluon.formatName(prop) + '</th>';
-					break;
-			}
+
+			html += '<th>' + Gluon.formatName(prop) + '</th>';
 		}
 		html += "</tr>";
 
@@ -126,13 +146,12 @@ var Gluon = {
 				if (!options.ignoreList.indexOf(prop)){
 					continue;
 				}
-				switch (typeof obj[prop]){
-					case 'string':
-					case 'number':
-					case 'boolean':
-						html += '<td>' + obj[prop] + '</td>';
-						break;
+
+				if (options.select[prop] && Array.isArray && !Array.isArray(options.select[prop])){
+					html += '<td>' + options.select[prop][obj[prop]] + '</td>';
+					continue;
 				}
+				html += '<td>' + obj[prop] + '</td>';
 			}
 
 			html += "</tr>";

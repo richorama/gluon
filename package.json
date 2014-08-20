@@ -1,6 +1,6 @@
 {
   "name": "gluon",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "Dynamic templating for bootstrap.",
   "main": "gluon.js",
   "scripts": {
