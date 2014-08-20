@@ -11,6 +11,10 @@ var Gluon = {
 		}
 		return x;
 	},
+	appendTitle : function(text){
+		if (!text) return "";
+		return "<h3>" + text + "</h3>"
+	},
 	parseOptions: function(options){
 		if (!options){
 			options = {};
@@ -41,6 +45,7 @@ var Gluon = {
 		options = Gluon.parseOptions(options);
 
 		var html = '';
+		html += Gluon.appendTitle(options.title);
 		for(var prop in obj){
 			if (!options.ignoreList.indexOf(prop)){
 				continue;
@@ -70,7 +75,9 @@ var Gluon = {
 		}
 		options = Gluon.parseOptions(options);
 
-		var html = '<div class="form-horizontal">';
+		var html = '';
+		html += Gluon.appendTitle(options.title);
+		html += '<div class="form-horizontal">';
 		for(var prop in obj){
 			if (!options.ignoreList.indexOf(prop)){
 				continue;
@@ -94,7 +101,9 @@ var Gluon = {
 		}
 		options = Gluon.parseOptions(options);
 
-		var html = '<table class="table table-bordered"><tr>';
+		var html = '';
+		html += Gluon.appendTitle(options.title);
+		html += '<table class="table table-bordered"><tr>';
 
 		var obj = objs[0];
 		for(var prop in obj){
@@ -157,10 +166,6 @@ var Gluon = {
 		}
 		return obj;
 	}
-}
-
-if (global){
-	global.Gluon = Gluon;
 }
 
 if (module && module.exports){

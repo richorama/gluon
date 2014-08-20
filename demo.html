@@ -22,7 +22,7 @@ $(document).ready(function(){
 	$("#edit").html(Gluon.edit(test, {ignoreList:["foo"], sessionId : "123"}));
 	$("#view").html(Gluon.view(test, {ignoreList:["foo"]}));
 	$("#table").html(Gluon.table([test,test,test], {ignoreList:["foo"]}));
-	$("#login").html(Gluon.edit({username:"richard", password: "password"}, {actions:["Login", "Cancel"]}));
+	$("#login").html(Gluon.edit({username:"richard", password: "password"}, {actions:["Login", "Cancel"], title:"Please log in"}));
 	console.log(Gluon.toJS("123"));
 });
 
