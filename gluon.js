@@ -41,6 +41,10 @@ var Gluon = {
 			.replace(/[_][A-Z]/, function(x){ return " " + x[1]});
 	},
 
+	formatValue : function(value){
+		return (value === undefined || value === null) ? "" : value;
+	},
+
 	edit : function(obj, options){
 		if (!obj){
 			return "";
@@ -84,9 +88,9 @@ var Gluon = {
 					break;
 				default:
 					if (prop.toLowerCase() === "password"){
-						html += '<div class="form-group"><label for="' + prop + '">' + Gluon.formatName(prop) + '</label><input data-type="string" type="password" class="form-control ' + options.sessionId + '" id="' + prop + '" value="' + obj[prop] + '"></div>';
+						html += '<div class="form-group"><label for="' + prop + '">' + Gluon.formatName(prop) + '</label><input data-type="string" type="password" class="form-control ' + options.sessionId + '" id="' + prop + '" value="' + Gluon.formatValue(obj[prop]) + '"></div>';
 					} else {
-						html += '<div class="form-group"><label for="' + prop + '">' + Gluon.formatName(prop) + '</label><input data-type="string" type="text" class="form-control ' + options.sessionId + '" id="' + prop + '" value="' + obj[prop] + '"></div>';
+						html += '<div class="form-group"><label for="' + prop + '">' + Gluon.formatName(prop) + '</label><input data-type="string" type="text" class="form-control ' + options.sessionId + '" id="' + prop + '" value="' + Gluon.formatValue(obj[prop]) + '"></div>';
 					}
 					break;
 			}
@@ -113,7 +117,7 @@ var Gluon = {
 				continue;
 			}
 
-			html += '<div class="form-group"><div class="col-md-6"><strong>' + Gluon.formatName(prop) + '</strong></div><div class="col-md-6">' + obj[prop] + '</div></div>';
+			html += '<div class="form-group"><div class="col-md-6"><strong>' + Gluon.formatName(prop) + '</strong></div><div class="col-md-6">' + Gluon.formatValue(obj[prop]) + '</div></div>';
 		}
 		html += "</div>";
 		html += Gluon.appendButtons(options.actions);
@@ -151,7 +155,7 @@ var Gluon = {
 					html += '<td>' + options.select[prop][obj[prop]] + '</td>';
 					continue;
 				}
-				html += '<td>' + obj[prop] + '</td>';
+				html += '<td>' + Gluon.formatValue(obj[prop]) + '</td>';
 			}
 
 			html += "</tr>";
