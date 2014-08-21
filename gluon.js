@@ -66,7 +66,7 @@ var Gluon = {
 					}
 				}
 
-				html += '<div class="form-group"><label for="' + prop + '">' + Gluon.formatName(prop) + '</label><select class="form-control ' + options.sessionId + '" id="' + prop + '">';
+				html += '<div class="form-group"><label for="' + prop + '">' + Gluon.formatName(prop) + '</label><select data-type="select"  class="form-control ' + options.sessionId + '" id="' + prop + '">';
 				if (Array.isArray && Array.isArray(options.select[prop])){
 					options.select[prop].forEach(function(x){
 						appendOption(x, x);
