@@ -177,6 +177,7 @@ var Gluon = {
 
 			switch (el.attributes["data-type"].value){
 				case 'string':
+				case 'select':
 					obj[el.id] = el.value;
 					break;
 				case 'number':
