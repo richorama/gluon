@@ -18,14 +18,18 @@
     <script>
 
 $(document).ready(function(){
+	
 	var test = { foo: "bar", firstName : "Richard", last_name : "Astbury", checkBoxTrue : true, check_box_False : false, age:36, gender:"male"};
 	$("#edit").html(Gluon.edit(test, {ignoreList:["foo"], sessionId : "123", select:{gender:{"male":"Male", "female": "Female"}}}));
 	$("#view").html(Gluon.view(test, {ignoreList:["foo"], select:{gender:{"male":"Male", "female": "Female"}}}));
 	$("#table").html(Gluon.table([test,test,test], {ignoreList:["foo"], select:{gender:{"male":"Male", "female": "Female"}}}));
+
 	$("#login").html(Gluon.edit(
-		{username:"richard", password: "password", domain : "baz"}, 
-		{actions:["Login", "Cancel"], title:"Please log in", select:{domain:{foo:"Foo", bar:"Bar", baz:"Baz"}}}));
+		{username:"richard", password: "password", domain : "bar,baz"}, 
+		{actions:["Login", "Cancel"], title:"Please log in", settings:{domain:{ismulti:true}}, sessionId:"222", select:{domain:{foo:"Foo", bar:"Bar", baz:"Baz"}}}));
+
 	console.log(Gluon.toJS("123"));
+	console.log(Gluon.toJS("222"));
 });
 
     </script>

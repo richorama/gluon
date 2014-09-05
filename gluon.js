@@ -31,6 +31,9 @@ var Gluon = {
 		if (options.select === undefined){
 			options.select = {};
 		}
+		if (options.settings === undefined){
+			options.settings = {};
+		}
 		return options;
 	},
 
@@ -57,16 +60,19 @@ var Gluon = {
 			if (!options.ignoreList.indexOf(prop)){
 				continue;
 			}
+			
 			if (options.select[prop]){
+				var ismulti = !!options.settings[prop];
+
 				var appendOption = function(id, description){
-					if (obj[prop] === id){
+					if (obj[prop].split(',').indexOf(id) !== -1){
 						html += '<option value="' + id + '" selected>' + description + '</option>';	
 					} else {
 						html += '<option value="' + id + '">' + description + '</option>';	
 					}
 				}
 
-				html += '<div class="form-group"><label for="' + prop + '">' + Gluon.formatName(prop) + '</label><select data-type="select"  class="form-control ' + options.sessionId + '" id="' + prop + '">';
+				html += '<div class="form-group"><label for="' + prop + '">' + Gluon.formatName(prop) + '</label><select data-type="select" ' + (ismulti ? "multiple" : "" ) + ' class="form-control ' + options.sessionId + '" id="' + prop + '">';
 				if (Array.isArray && Array.isArray(options.select[prop])){
 					options.select[prop].forEach(function(x){
 						appendOption(x, x);
@@ -166,6 +172,18 @@ var Gluon = {
 		return html;		
 	},
 	toJS: function(sessionId){
+
+		function getSelectValues(select) {
+			console.dir(select)
+			var result = [];
+			var options = select && select.options;
+			for (var i = 0; i < select.options.length; i++) {
+				var opt = select.options[i];
+				if (opt.selected) result.push(opt.value || opt.text);
+			}
+			return result;
+		}
+
 		if (sessionId === undefined){
 			sessionId = "gluon";
 		}
@@ -177,8 +195,10 @@ var Gluon = {
 
 			switch (el.attributes["data-type"].value){
 				case 'string':
-				case 'select':
 					obj[el.id] = el.value;
+					break;
+				case 'select':
+					obj[el.id] = getSelectValues(el).join(",");
 					break;
 				case 'number':
 					obj[el.id] = Number(el.value);						
@@ -191,6 +211,8 @@ var Gluon = {
 		return obj;
 	}
 }
+
+
 
 if (module && module.exports){
 	module.exports = Gluon;
