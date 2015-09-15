@@ -1,6 +1,6 @@
 # gluon.js
 
-### Work in progress. Please feel free to contirbute.
+### Work in progress. Please feel free to contribute.
 
 Dynamic templating for bootstrap.
 
